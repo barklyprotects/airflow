@@ -191,6 +191,7 @@ celeryd_concurrency = 16
 # the port on which the logs are served. It needs to be unused, and open
 # visible from the main web server to connect into the workers.
 worker_log_server_port = 8793
+worker_log_server_host = localhost
 
 # The Celery broker URL. Celery supports RabbitMQ, Redis and experimentally
 # a sqlalchemy database. Refer to the Celery documentation for more

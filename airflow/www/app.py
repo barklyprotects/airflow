@@ -859,8 +859,10 @@ class Airflow(BaseView):
             else:
                 WORKER_LOG_SERVER_PORT = \
                     conf.get('celery', 'WORKER_LOG_SERVER_PORT')
+                WORKER_LOG_SERVER_HOST = \
+                    conf.get('celery', 'WORKER_LOG_SERVER_HOST')
                 url = os.path.join(
-                    "http://{host}:{WORKER_LOG_SERVER_PORT}/log", log_relative
+                    "http://{WORKER_LOG_SERVER_HOST}:{WORKER_LOG_SERVER_PORT}/log", log_relative
                     ).format(**locals())
                 log += "*** Log file isn't local.\n"
                 log += "*** Fetching here: {url}\n".format(**locals())
@@ -1356,7 +1358,7 @@ class Airflow(BaseView):
                         float(ti.duration) / (60*60)
                     ])
             if data:
-                all_data.append({'data': data, 'name': task.task_id})
+                all_data.append({str('data'): data, str('name'): task.task_id})
 
         session.commit()
         session.close()
@@ -1399,7 +1401,7 @@ class Airflow(BaseView):
                                 ti.execution_date + task.schedule_interval)
                         ).total_seconds(),(60*60))
                     ])
-            all_data.append({'data': data, 'name': task.task_id})
+            all_data.append({str('data'): data, str('name'): task.task_id})
 
         session.commit()
         session.close()
